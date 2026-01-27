@@ -1,29 +1,47 @@
 "use client";
 
 import { useState } from "react";
+import { JTBD } from "@/lib/personaData";
 
 interface JTBDCardProps {
   archetype: string;
   context: string;
   experience: string;
-  action: string;
-  outcome: string;
+  jtbd: JTBD;
+  contextImpact: string;
+  experienceImpact: string;
+}
+
+function JTBDTypeBadge({ type }: { type: string }) {
+  const colors: Record<string, string> = {
+    Functional: "bg-green-100 text-green-700",
+    Social: "bg-purple-100 text-purple-700",
+    Emotional: "bg-rose-100 text-rose-700",
+  };
+
+  return (
+    <span
+      className={`text-xs font-semibold px-2 py-0.5 rounded ${colors[type] || "bg-gray-100 text-gray-700"}`}
+    >
+      {type}
+    </span>
+  );
 }
 
 export default function JTBDCard({
   archetype,
   context,
   experience,
-  action,
-  outcome,
+  jtbd,
+  contextImpact,
+  experienceImpact,
 }: JTBDCardProps) {
   const [copied, setCopied] = useState(false);
-
-  const jtbdText = `When I start a new project, I want to ${action}, so that I can ${outcome}.`;
+  const [expanded, setExpanded] = useState(false);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(jtbdText);
+      await navigator.clipboard.writeText(jtbd.statement);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -44,60 +62,120 @@ export default function JTBDCard({
         <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-1 rounded">
           {experience}
         </span>
+        <JTBDTypeBadge type={jtbd.type} />
       </div>
 
       {/* JTBD Statement */}
       <p className="text-gray-700 leading-relaxed mb-4">
-        &ldquo;When I start a new project, I want to{" "}
-        <strong className="text-intuit-blue">{action}</strong>, so that I can{" "}
-        <strong className="text-intuit-blue">{outcome}</strong>.&rdquo;
+        &ldquo;{jtbd.statement}&rdquo;
       </p>
 
-      {/* Copy Button */}
-      <button
-        onClick={handleCopy}
-        className={`flex items-center gap-2 text-sm px-3 py-1.5 rounded-md transition-all ${
-          copied
-            ? "bg-green-100 text-green-700"
-            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-        }`}
-      >
-        {copied ? (
-          <>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Copied!
-          </>
-        ) : (
-          <>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-            Copy JTBD
-          </>
-        )}
-      </button>
+      {/* Expandable Impact Details */}
+      {expanded && (
+        <div className="mb-4 space-y-2 text-sm animate-fade-in-up">
+          <div className="bg-blue-50 p-3 rounded">
+            <p className="font-semibold text-blue-800 text-xs mb-1">
+              Context Impact
+            </p>
+            <p className="text-blue-900">{contextImpact}</p>
+          </div>
+          <div className="bg-amber-50 p-3 rounded">
+            <p className="font-semibold text-amber-800 text-xs mb-1">
+              Experience Impact
+            </p>
+            <p className="text-amber-900">{experienceImpact}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={handleCopy}
+          className={`flex items-center gap-2 text-sm px-3 py-1.5 rounded-md transition-all ${
+            copied
+              ? "bg-green-100 text-green-700"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          {copied ? (
+            <>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              Copied!
+            </>
+          ) : (
+            <>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+              Copy
+            </>
+          )}
+        </button>
+
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all"
+        >
+          {expanded ? (
+            <>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 15l7-7 7 7"
+                />
+              </svg>
+              Less
+            </>
+          ) : (
+            <>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+              Details
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

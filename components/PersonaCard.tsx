@@ -6,6 +6,22 @@ interface PersonaCardProps {
   persona: GeneratedPersona;
 }
 
+function JTBDTypeBadge({ type }: { type: string }) {
+  const colors: Record<string, string> = {
+    Functional: "bg-green-100 text-green-700",
+    Social: "bg-purple-100 text-purple-700",
+    Emotional: "bg-rose-100 text-rose-700",
+  };
+
+  return (
+    <span
+      className={`text-xs font-semibold px-2 py-0.5 rounded ${colors[type] || "bg-gray-100 text-gray-700"}`}
+    >
+      {type}
+    </span>
+  );
+}
+
 export default function PersonaCard({ persona }: PersonaCardProps) {
   return (
     <div className="max-w-4xl w-full mt-8 animate-fade-in-up">
@@ -26,38 +42,86 @@ export default function PersonaCard({ persona }: PersonaCardProps) {
             </span>
           </div>
 
-          {/* Quote */}
-          <blockquote className="mt-4 border-l-4 border-gray-300 pl-4 italic text-gray-600 text-lg">
-            &ldquo;{persona.quote}&rdquo;
-          </blockquote>
+          {/* Definition */}
+          <p className="mt-4 text-gray-600 leading-relaxed">
+            {persona.definition}
+          </p>
+
+          {/* Core Context & Motivation */}
+          <div className="mt-4 flex flex-wrap gap-4">
+            <div className="flex-1 min-w-[200px]">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                Core Context
+              </p>
+              <p className="text-sm text-gray-700">{persona.coreContext}</p>
+            </div>
+            <div className="flex-1 min-w-[200px]">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                Core Motivation
+              </p>
+              <p className="text-sm text-gray-700 font-medium">
+                &ldquo;{persona.motivation}&rdquo;
+              </p>
+            </div>
+          </div>
 
           <hr className="my-6 border-gray-100" />
 
           {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Friction Points */}
             <div>
               <h3 className="font-bold text-gray-800 flex items-center mb-3">
                 <span className="mr-2">🧨</span>
-                Top Friction Points
+                Friction Points
               </h3>
-              <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <ul className="space-y-3">
                 {persona.frictions.map((friction, index) => (
-                  <li key={index}>{friction}</li>
+                  <li
+                    key={index}
+                    className="text-gray-700 text-sm leading-relaxed pl-4 border-l-2 border-red-200"
+                  >
+                    {friction}
+                  </li>
                 ))}
               </ul>
             </div>
 
-            {/* JTBD */}
+            {/* JTBDs */}
             <div className="bg-gray-50 p-4 rounded-lg">
               <h3 className="font-bold text-gray-800 flex items-center mb-3">
                 <span className="mr-2">🎯</span>
-                Primary Job to be Done
+                Jobs to be Done
               </h3>
-              <p className="text-gray-700 leading-relaxed">
-                &ldquo;When I start a new project, I want to{" "}
-                <strong>{persona.jtbd.action}</strong>, so that I can{" "}
-                <strong>{persona.jtbd.outcome}</strong>.&rdquo;
+              <div className="space-y-4">
+                {persona.jtbds.map((jtbd, index) => (
+                  <div key={index} className="space-y-1">
+                    <JTBDTypeBadge type={jtbd.type} />
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      &ldquo;{jtbd.statement}&rdquo;
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <hr className="my-6 border-gray-100" />
+
+          {/* Context & Experience Impact */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h4 className="text-sm font-semibold text-blue-800 mb-2">
+                📍 Context Impact
+              </h4>
+              <p className="text-sm text-blue-900">{persona.contextImpact}</p>
+            </div>
+            <div className="bg-amber-50 p-4 rounded-lg">
+              <h4 className="text-sm font-semibold text-amber-800 mb-2">
+                📊 Experience Impact
+              </h4>
+              <p className="text-sm text-amber-900">
+                {persona.experienceImpact}
               </p>
             </div>
           </div>

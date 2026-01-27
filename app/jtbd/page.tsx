@@ -7,54 +7,8 @@ import {
   archetypeOptions,
   contextOptions,
   experienceOptions,
-  baseData,
-  contextModifiers,
-  expModifiers,
-  ArchetypeKey,
-  ContextKey,
-  ExperienceKey,
+  getAllJTBDsWithContext,
 } from "@/lib/personaData";
-
-interface JTBD {
-  id: string;
-  archetype: string;
-  archetypeLabel: string;
-  context: string;
-  contextLabel: string;
-  experience: string;
-  experienceLabel: string;
-  action: string;
-  outcome: string;
-}
-
-// Generate all JTBD combinations
-function getAllJTBDs(): JTBD[] {
-  const jtbds: JTBD[] = [];
-
-  for (const arch of archetypeOptions) {
-    for (const ctx of contextOptions) {
-      for (const exp of experienceOptions) {
-        const archData = baseData[arch.value as ArchetypeKey];
-        const ctxData = contextModifiers[ctx.value as ContextKey];
-        const expData = expModifiers[exp.value as ExperienceKey];
-
-        jtbds.push({
-          id: `${arch.value}-${ctx.value}-${exp.value}`,
-          archetype: arch.value,
-          archetypeLabel: archData.badge,
-          context: ctx.value,
-          contextLabel: ctx.label,
-          experience: exp.value,
-          experienceLabel: exp.label,
-          action: expData.action,
-          outcome: ctxData.outcome,
-        });
-      }
-    }
-  }
-
-  return jtbds;
-}
 
 interface FilterChipProps {
   label: string;
@@ -78,10 +32,16 @@ function FilterChip({ label, selected, onClick, colorClass }: FilterChipProps) {
   );
 }
 
-export default function JTBDPage() {
-  const allJTBDs = useMemo(() => getAllJTBDs(), []);
+const jtbdTypeOptions = [
+  { value: "Functional", label: "Functional" },
+  { value: "Social", label: "Social" },
+  { value: "Emotional", label: "Emotional" },
+];
 
-  // Filter state - now arrays for multi-select
+export default function JTBDPage() {
+  const allJTBDs = useMemo(() => getAllJTBDsWithContext(), []);
+
+  // Filter state - arrays for multi-select
   const [archetypeFilters, setArchetypeFilters] = useState<Set<string>>(
     new Set()
   );
@@ -89,16 +49,14 @@ export default function JTBDPage() {
   const [experienceFilters, setExperienceFilters] = useState<Set<string>>(
     new Set()
   );
+  const [typeFilters, setTypeFilters] = useState<Set<string>>(new Set());
 
   // Toggle filter functions
   const toggleArchetype = (value: string) => {
     setArchetypeFilters((prev) => {
       const next = new Set(prev);
-      if (next.has(value)) {
-        next.delete(value);
-      } else {
-        next.add(value);
-      }
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
       return next;
     });
   };
@@ -106,11 +64,8 @@ export default function JTBDPage() {
   const toggleContext = (value: string) => {
     setContextFilters((prev) => {
       const next = new Set(prev);
-      if (next.has(value)) {
-        next.delete(value);
-      } else {
-        next.add(value);
-      }
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
       return next;
     });
   };
@@ -118,38 +73,48 @@ export default function JTBDPage() {
   const toggleExperience = (value: string) => {
     setExperienceFilters((prev) => {
       const next = new Set(prev);
-      if (next.has(value)) {
-        next.delete(value);
-      } else {
-        next.add(value);
-      }
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return next;
+    });
+  };
+
+  const toggleType = (value: string) => {
+    setTypeFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
       return next;
     });
   };
 
   // Filtered JTBDs
   const filteredJTBDs = useMemo(() => {
-    return allJTBDs.filter((jtbd) => {
-      if (archetypeFilters.size > 0 && !archetypeFilters.has(jtbd.archetype))
+    return allJTBDs.filter((item) => {
+      if (archetypeFilters.size > 0 && !archetypeFilters.has(item.archetype))
         return false;
-      if (contextFilters.size > 0 && !contextFilters.has(jtbd.context))
+      if (contextFilters.size > 0 && !contextFilters.has(item.context))
         return false;
-      if (experienceFilters.size > 0 && !experienceFilters.has(jtbd.experience))
+      if (experienceFilters.size > 0 && !experienceFilters.has(item.experience))
+        return false;
+      if (typeFilters.size > 0 && !typeFilters.has(item.jtbd.type))
         return false;
       return true;
     });
-  }, [allJTBDs, archetypeFilters, contextFilters, experienceFilters]);
+  }, [allJTBDs, archetypeFilters, contextFilters, experienceFilters, typeFilters]);
 
   const clearFilters = () => {
     setArchetypeFilters(new Set());
     setContextFilters(new Set());
     setExperienceFilters(new Set());
+    setTypeFilters(new Set());
   };
 
   const hasActiveFilters =
     archetypeFilters.size > 0 ||
     contextFilters.size > 0 ||
-    experienceFilters.size > 0;
+    experienceFilters.size > 0 ||
+    typeFilters.size > 0;
 
   return (
     <main className="p-10 flex flex-col items-center min-h-screen">
@@ -178,8 +143,8 @@ export default function JTBDPage() {
           All Jobs to be Done
         </h1>
         <p className="text-gray-500 mt-2">
-          Browse all JTBD combinations across archetypes, contexts, and
-          experience levels.
+          Browse all JTBD statements across archetypes, contexts, experience
+          levels, and types.
         </p>
       </div>
 
@@ -243,6 +208,34 @@ export default function JTBDPage() {
             </div>
           </div>
 
+          {/* JTBD Type Filter */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <span className="inline-block w-2 h-2 bg-green-400 rounded mr-2"></span>
+              JTBD Type
+            </label>
+            <div className="flex flex-wrap gap-2">
+              <FilterChip
+                label="Functional"
+                selected={typeFilters.has("Functional")}
+                onClick={() => toggleType("Functional")}
+                colorClass="bg-green-100 text-green-800 ring-green-400"
+              />
+              <FilterChip
+                label="Social"
+                selected={typeFilters.has("Social")}
+                onClick={() => toggleType("Social")}
+                colorClass="bg-purple-100 text-purple-800 ring-purple-400"
+              />
+              <FilterChip
+                label="Emotional"
+                selected={typeFilters.has("Emotional")}
+                onClick={() => toggleType("Emotional")}
+                colorClass="bg-rose-100 text-rose-800 ring-rose-400"
+              />
+            </div>
+          </div>
+
           {/* Clear Filters */}
           {hasActiveFilters && (
             <div className="pt-2 border-t border-gray-100">
@@ -266,14 +259,15 @@ export default function JTBDPage() {
 
       {/* JTBD Grid */}
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredJTBDs.map((jtbd) => (
+        {filteredJTBDs.map((item) => (
           <JTBDCard
-            key={jtbd.id}
-            archetype={jtbd.archetypeLabel}
-            context={jtbd.contextLabel}
-            experience={jtbd.experienceLabel}
-            action={jtbd.action}
-            outcome={jtbd.outcome}
+            key={item.id}
+            archetype={item.archetypeLabel}
+            context={item.contextLabel}
+            experience={item.experienceLabel}
+            jtbd={item.jtbd}
+            contextImpact={item.contextImpact}
+            experienceImpact={item.experienceImpact}
           />
         ))}
       </div>
