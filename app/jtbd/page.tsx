@@ -56,37 +56,100 @@ function getAllJTBDs(): JTBD[] {
   return jtbds;
 }
 
+interface FilterChipProps {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+  colorClass: string;
+}
+
+function FilterChip({ label, selected, onClick, colorClass }: FilterChipProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+        selected
+          ? `${colorClass} ring-2 ring-offset-1`
+          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 export default function JTBDPage() {
   const allJTBDs = useMemo(() => getAllJTBDs(), []);
 
-  // Filter state
-  const [archetypeFilter, setArchetypeFilter] = useState<string>("all");
-  const [contextFilter, setContextFilter] = useState<string>("all");
-  const [experienceFilter, setExperienceFilter] = useState<string>("all");
+  // Filter state - now arrays for multi-select
+  const [archetypeFilters, setArchetypeFilters] = useState<Set<string>>(
+    new Set()
+  );
+  const [contextFilters, setContextFilters] = useState<Set<string>>(new Set());
+  const [experienceFilters, setExperienceFilters] = useState<Set<string>>(
+    new Set()
+  );
+
+  // Toggle filter functions
+  const toggleArchetype = (value: string) => {
+    setArchetypeFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) {
+        next.delete(value);
+      } else {
+        next.add(value);
+      }
+      return next;
+    });
+  };
+
+  const toggleContext = (value: string) => {
+    setContextFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) {
+        next.delete(value);
+      } else {
+        next.add(value);
+      }
+      return next;
+    });
+  };
+
+  const toggleExperience = (value: string) => {
+    setExperienceFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) {
+        next.delete(value);
+      } else {
+        next.add(value);
+      }
+      return next;
+    });
+  };
 
   // Filtered JTBDs
   const filteredJTBDs = useMemo(() => {
     return allJTBDs.filter((jtbd) => {
-      if (archetypeFilter !== "all" && jtbd.archetype !== archetypeFilter)
+      if (archetypeFilters.size > 0 && !archetypeFilters.has(jtbd.archetype))
         return false;
-      if (contextFilter !== "all" && jtbd.context !== contextFilter)
+      if (contextFilters.size > 0 && !contextFilters.has(jtbd.context))
         return false;
-      if (experienceFilter !== "all" && jtbd.experience !== experienceFilter)
+      if (experienceFilters.size > 0 && !experienceFilters.has(jtbd.experience))
         return false;
       return true;
     });
-  }, [allJTBDs, archetypeFilter, contextFilter, experienceFilter]);
+  }, [allJTBDs, archetypeFilters, contextFilters, experienceFilters]);
 
   const clearFilters = () => {
-    setArchetypeFilter("all");
-    setContextFilter("all");
-    setExperienceFilter("all");
+    setArchetypeFilters(new Set());
+    setContextFilters(new Set());
+    setExperienceFilters(new Set());
   };
 
   const hasActiveFilters =
-    archetypeFilter !== "all" ||
-    contextFilter !== "all" ||
-    experienceFilter !== "all";
+    archetypeFilters.size > 0 ||
+    contextFilters.size > 0 ||
+    experienceFilters.size > 0;
 
   return (
     <main className="p-10 flex flex-col items-center min-h-screen">
@@ -122,78 +185,75 @@ export default function JTBDPage() {
 
       {/* Filters */}
       <div className="max-w-6xl w-full mb-6">
-        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-          <div className="flex flex-wrap items-end gap-4">
-            {/* Archetype Filter */}
-            <div className="flex-1 min-w-[180px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                <span className="inline-block w-2 h-2 bg-blue-100 rounded mr-2"></span>
-                Archetype
-              </label>
-              <select
-                value={archetypeFilter}
-                onChange={(e) => setArchetypeFilter(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 focus:ring-2 focus:ring-intuit-blue focus:border-intuit-blue transition-colors cursor-pointer"
-              >
-                <option value="all">All Archetypes</option>
-                {archetypeOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+        <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm space-y-4">
+          {/* Archetype Filter */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <span className="inline-block w-2 h-2 bg-blue-400 rounded mr-2"></span>
+              Archetype
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {archetypeOptions.map((opt) => (
+                <FilterChip
+                  key={opt.value}
+                  label={opt.label}
+                  selected={archetypeFilters.has(opt.value)}
+                  onClick={() => toggleArchetype(opt.value)}
+                  colorClass="bg-blue-100 text-blue-800 ring-blue-400"
+                />
+              ))}
             </div>
+          </div>
 
-            {/* Context Filter */}
-            <div className="flex-1 min-w-[180px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                <span className="inline-block w-2 h-2 bg-gray-200 rounded mr-2"></span>
-                Context
-              </label>
-              <select
-                value={contextFilter}
-                onChange={(e) => setContextFilter(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 focus:ring-2 focus:ring-intuit-blue focus:border-intuit-blue transition-colors cursor-pointer"
-              >
-                <option value="all">All Contexts</option>
-                {contextOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+          {/* Context Filter */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <span className="inline-block w-2 h-2 bg-gray-400 rounded mr-2"></span>
+              Context
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {contextOptions.map((opt) => (
+                <FilterChip
+                  key={opt.value}
+                  label={opt.label}
+                  selected={contextFilters.has(opt.value)}
+                  onClick={() => toggleContext(opt.value)}
+                  colorClass="bg-gray-200 text-gray-800 ring-gray-400"
+                />
+              ))}
             </div>
+          </div>
 
-            {/* Experience Filter */}
-            <div className="flex-1 min-w-[180px]">
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                <span className="inline-block w-2 h-2 bg-amber-100 rounded mr-2"></span>
-                Experience
-              </label>
-              <select
-                value={experienceFilter}
-                onChange={(e) => setExperienceFilter(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-900 focus:ring-2 focus:ring-intuit-blue focus:border-intuit-blue transition-colors cursor-pointer"
-              >
-                <option value="all">All Experience Levels</option>
-                {experienceOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+          {/* Experience Filter */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <span className="inline-block w-2 h-2 bg-amber-400 rounded mr-2"></span>
+              Experience
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {experienceOptions.map((opt) => (
+                <FilterChip
+                  key={opt.value}
+                  label={opt.label}
+                  selected={experienceFilters.has(opt.value)}
+                  onClick={() => toggleExperience(opt.value)}
+                  colorClass="bg-amber-100 text-amber-800 ring-amber-400"
+                />
+              ))}
             </div>
+          </div>
 
-            {/* Clear Filters */}
-            {hasActiveFilters && (
+          {/* Clear Filters */}
+          {hasActiveFilters && (
+            <div className="pt-2 border-t border-gray-100">
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-md transition-colors"
+                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
               >
-                Clear Filters
+                ✕ Clear all filters
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
