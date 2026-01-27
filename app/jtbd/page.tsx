@@ -131,6 +131,37 @@ export default function JTBDPage() {
     experienceFilters.size > 0 ||
     typeFilters.size > 0;
 
+  const downloadCSV = () => {
+    const headers = [
+      "Archetype",
+      "Context",
+      "Experience",
+      "JTBD Type",
+      "JTBD Statement",
+      "Context Impact",
+      "Experience Impact",
+    ];
+
+    const rows = filteredJTBDs.map((item) => [
+      item.archetypeLabel,
+      item.contextLabel,
+      item.experienceLabel,
+      item.jtbd.type,
+      `"${item.jtbd.statement.replace(/"/g, '""')}"`,
+      `"${item.contextImpact.replace(/"/g, '""')}"`,
+      `"${item.experienceImpact.replace(/"/g, '""')}"`,
+    ]);
+
+    const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "jtbd-export.csv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
   return (
     <main className="p-10 flex flex-col items-center min-h-screen">
       {/* Header */}
@@ -154,9 +185,30 @@ export default function JTBDPage() {
           </svg>
           Back to Generator
         </Link>
-        <h1 className="text-3xl font-bold text-gray-800">
-          All Jobs to be Done
-        </h1>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h1 className="text-3xl font-bold text-gray-800">
+            All Jobs to be Done
+          </h1>
+          <button
+            onClick={downloadCSV}
+            className="inline-flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-md transition-colors text-sm"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            Download CSV
+          </button>
+        </div>
         <p className="text-gray-500 mt-2">
           Browse all JTBD statements across archetypes, contexts, experience
           levels, and types.
