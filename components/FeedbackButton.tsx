@@ -1,17 +1,66 @@
 "use client";
 
+import { useState } from "react";
+
 export default function FeedbackButton() {
-  return (
-    <div className="fixed bottom-4 right-4 z-50">
-      <div className="bg-white rounded-full shadow-lg border border-gray-200 px-4 py-2 text-sm text-gray-600">
-        💬 Want to share your feedback? DM{" "}
-        <a
-          href="slack://user?team=T024FJS4L&id=U06TT4E818U"
-          className="font-semibold text-intuit-blue hover:underline"
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) {
+    return (
+      <button
+        onClick={() => setIsVisible(true)}
+        className="fixed bottom-4 right-4 z-50 bg-intuit-blue hover:bg-intuit-blue-dark text-white p-3 rounded-full shadow-lg transition-all hover:scale-105"
+        aria-label="Show feedback prompt"
+      >
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          @ainatte inbal
-        </a>{" "}
-        on Slack!
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+          />
+        </svg>
+      </button>
+    );
+  }
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50 animate-fade-in-up">
+      <div className="bg-white rounded-full shadow-lg border border-gray-200 pl-4 pr-2 py-2 text-sm text-gray-600 flex items-center gap-2">
+        <span>
+          💬 Want to share your feedback? DM{" "}
+          <a
+            href="slack://user?team=T024FJS4L&id=U06TT4E818U"
+            className="font-semibold text-intuit-blue hover:underline"
+          >
+            @ainatte inbal
+          </a>{" "}
+          on Slack!
+        </span>
+        <button
+          onClick={() => setIsVisible(false)}
+          className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100"
+          aria-label="Hide feedback prompt"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   );
