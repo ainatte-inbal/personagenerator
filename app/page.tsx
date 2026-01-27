@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import PersonaControls from "@/components/PersonaControls";
 import PersonaCard from "@/components/PersonaCard";
 import {
@@ -32,6 +33,25 @@ export default function Home() {
         <p className="text-gray-500 mt-2">
           Configure the inputs to generate a contextual user profile.
         </p>
+        <Link
+          href="/jtbd"
+          className="inline-flex items-center gap-2 mt-4 text-intuit-blue hover:text-intuit-blue-dark transition-colors font-medium"
+        >
+          View All Jobs to be Done
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </Link>
       </div>
 
       {/* Controls */}
