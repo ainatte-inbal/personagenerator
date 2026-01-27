@@ -8,6 +8,8 @@ import {
   contextOptions,
   experienceOptions,
   getAllJTBDsWithContext,
+  baseData,
+  ArchetypeKey,
 } from "@/lib/personaData";
 
 interface FilterChipProps {
@@ -15,28 +17,41 @@ interface FilterChipProps {
   selected: boolean;
   onClick: () => void;
   colorClass: string;
+  tooltip?: string;
 }
 
-function FilterChip({ label, selected, onClick, colorClass }: FilterChipProps) {
+function FilterChip({
+  label,
+  selected,
+  onClick,
+  colorClass,
+  tooltip,
+}: FilterChipProps) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-        selected
-          ? `${colorClass} ring-2 ring-offset-1`
-          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-      }`}
-    >
-      {label}
-    </button>
+    <div className="relative">
+      <button
+        onClick={onClick}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+          selected
+            ? `${colorClass} ring-2 ring-offset-1`
+            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+        }`}
+      >
+        {label}
+      </button>
+      {tooltip && showTooltip && (
+        <div className="absolute z-50 left-0 top-full mt-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl">
+          <div className="absolute -top-1.5 left-4 w-3 h-3 bg-gray-900 rotate-45"></div>
+          {tooltip}
+        </div>
+      )}
+    </div>
   );
 }
-
-const jtbdTypeOptions = [
-  { value: "Functional", label: "Functional" },
-  { value: "Social", label: "Social" },
-  { value: "Emotional", label: "Emotional" },
-];
 
 export default function JTBDPage() {
   const allJTBDs = useMemo(() => getAllJTBDsWithContext(), []);
@@ -156,6 +171,9 @@ export default function JTBDPage() {
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               <span className="inline-block w-2 h-2 bg-blue-400 rounded mr-2"></span>
               Archetype
+              <span className="font-normal text-gray-500 ml-2">
+                (hover for details)
+              </span>
             </label>
             <div className="flex flex-wrap gap-2">
               {archetypeOptions.map((opt) => (
@@ -165,6 +183,7 @@ export default function JTBDPage() {
                   selected={archetypeFilters.has(opt.value)}
                   onClick={() => toggleArchetype(opt.value)}
                   colorClass="bg-blue-100 text-blue-800 ring-blue-400"
+                  tooltip={baseData[opt.value as ArchetypeKey].definition}
                 />
               ))}
             </div>
@@ -220,18 +239,21 @@ export default function JTBDPage() {
                 selected={typeFilters.has("Functional")}
                 onClick={() => toggleType("Functional")}
                 colorClass="bg-green-100 text-green-800 ring-green-400"
+                tooltip="Task-oriented goals: What the user needs to accomplish"
               />
               <FilterChip
                 label="Social"
                 selected={typeFilters.has("Social")}
                 onClick={() => toggleType("Social")}
                 colorClass="bg-purple-100 text-purple-800 ring-purple-400"
+                tooltip="Team/communication goals: How the user wants to be perceived"
               />
               <FilterChip
                 label="Emotional"
                 selected={typeFilters.has("Emotional")}
                 onClick={() => toggleType("Emotional")}
                 colorClass="bg-rose-100 text-rose-800 ring-rose-400"
+                tooltip="Personal feeling goals: How the user wants to feel"
               />
             </div>
           </div>
