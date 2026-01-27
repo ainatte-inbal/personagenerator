@@ -6,7 +6,7 @@ export default function FeedbackButton() {
       <div className="bg-white rounded-full shadow-lg border border-gray-200 px-4 py-2 text-sm text-gray-600">
         💬 Want to share your feedback? DM{" "}
         <a
-          href="slack://user?team=T024FJS4L&id=U02PHPRFQM6"
+          href="slack://user?team=T024FJS4L&id=U06TT4E818U"
           className="font-semibold text-intuit-blue hover:underline"
         >
           @ainatte inbal
