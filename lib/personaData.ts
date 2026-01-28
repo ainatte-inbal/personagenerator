@@ -1,6 +1,6 @@
 // Type definitions
 export type ArchetypeKey = "producer" | "consumer" | "operator" | "steward";
-export type ContextKey = "pdx" | "sbseg" | "cg";
+export type ContextKey = "pdx" | "gbsg" | "cg";
 export type ExperienceKey = "junior" | "senior";
 
 export interface JTBD {
@@ -153,8 +153,8 @@ export const contextModifiers: Record<ContextKey, ContextModifier> = {
         "Oversees platform-wide standards and cross-team compliance metrics.",
     },
   },
-  sbseg: {
-    label: "SBSEG (Small Biz)",
+  gbsg: {
+    label: "GBSG (Small Biz)",
     impactByArchetype: {
       producer:
         "Needs speed; will bypass standards if the platform is too slow ('Shadow IT').",
@@ -220,7 +220,7 @@ export const archetypeOptions = [
 
 export const contextOptions = [
   { value: "pdx", label: "PDX (Platform)" },
-  { value: "sbseg", label: "SBSEG (Small Biz)" },
+  { value: "gbsg", label: "GBSG (Small Biz)" },
   { value: "cg", label: "CG (Consumer/Tax)" },
 ] as const;
 
