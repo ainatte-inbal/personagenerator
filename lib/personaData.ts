@@ -59,12 +59,12 @@ export const baseData: Record<ArchetypeKey, ArchetypeData> = {
       {
         type: "Functional",
         statement:
-          "When I start a new asset, I want a standardized template, so that I don't have to configure infrastructure from scratch.",
+          "When I build a new asset type, I want to codify it into a reusable template, so that I can ensure every downstream consumer follows best practices for security and performance.",
       },
       {
         type: "Social",
         statement:
-          "When I publish an asset, I want it to be easily discoverable by consumers, so that I don't get pinged constantly on Slack for access.",
+          "When I provide a standardized framework, I want to be seen as a strategic enabler rather than a bottleneck, reducing the need for manual hand-holding.",
       },
     ],
   },
