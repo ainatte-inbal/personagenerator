@@ -24,6 +24,11 @@ export default function Home() {
     setPersona(generated);
   };
 
+  const handleArchetypeChange = (value: ArchetypeKey) => {
+    setArchetype(value);
+    setPersona(null); // Clear persona to show description again
+  };
+
   return (
     <main className="p-10 flex flex-col items-center min-h-screen">
       {/* Header */}
@@ -60,17 +65,18 @@ export default function Home() {
         archetype={archetype}
         context={context}
         experience={experience}
-        onArchetypeChange={setArchetype}
+        onArchetypeChange={handleArchetypeChange}
         onContextChange={setContext}
         onExperienceChange={setExperience}
         onGenerate={handleGenerate}
       />
 
-      {/* Archetype Description */}
-      <ArchetypeDescription archetype={archetype} />
-
-      {/* Output */}
-      {persona && <PersonaCard persona={persona} />}
+      {/* Show either Archetype Description OR Generated Persona */}
+      {persona ? (
+        <PersonaCard persona={persona} />
+      ) : (
+        <ArchetypeDescription archetype={archetype} />
+      )}
     </main>
   );
 }
