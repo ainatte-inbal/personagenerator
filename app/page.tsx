@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PersonaControls from "@/components/PersonaControls";
 import PersonaCard from "@/components/PersonaCard";
+import ArchetypeDescription from "@/components/ArchetypeDescription";
 import {
   ArchetypeKey,
   ContextKey,
@@ -64,6 +65,9 @@ export default function Home() {
         onExperienceChange={setExperience}
         onGenerate={handleGenerate}
       />
+
+      {/* Archetype Description */}
+      <ArchetypeDescription archetype={archetype} />
 
       {/* Output */}
       {persona && <PersonaCard persona={persona} />}
