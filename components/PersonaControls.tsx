@@ -9,7 +9,7 @@ import {
   archetypeOptions,
   contextOptions,
   experienceOptions,
-  baseData,
+  archetypeInfo,
 } from "@/lib/personaData";
 
 interface PersonaControlsProps {
@@ -23,10 +23,10 @@ interface PersonaControlsProps {
 }
 
 const archetypeTooltips: Record<ArchetypeKey, string> = {
-  producer: baseData.producer.definition,
-  consumer: baseData.consumer.definition,
-  operator: baseData.operator.definition,
-  steward: baseData.steward.definition,
+  producer: archetypeInfo.producer.description,
+  consumer: archetypeInfo.consumer.description,
+  operator: archetypeInfo.operator.description,
+  steward: archetypeInfo.steward.description,
 };
 
 export default function PersonaControls({

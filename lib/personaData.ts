@@ -1,6 +1,6 @@
 // Type definitions
 export type ArchetypeKey = "producer" | "consumer" | "operator" | "steward";
-export type ContextKey = "pdx" | "gbsg" | "cg";
+export type ContextKey = "pdx" | "gbsg" | "cg" | "idx";
 export type ExperienceKey = "junior" | "senior";
 
 export interface JTBD {
@@ -8,53 +8,48 @@ export interface JTBD {
   statement: string;
 }
 
-export interface ArchetypeData {
-  title: string;
-  subtitle: string;
-  badge: string;
-  definition: string;
-  coreContext: string;
+export interface PersonaInstance {
+  instanceName: string;
+  archetype: ArchetypeKey;
+  archetypeTitle: string;
+  archetypeSubtitle: string;
+  context: ContextKey;
+  contextLabel: string;
+  experience: ExperienceKey;
+  experienceLabel: string;
+  modifier: string;
   motivation: string;
-  universalFriction: string;
+  friction: string;
   jtbds: JTBD[];
-}
-
-export interface ContextModifier {
-  label: string;
-  impactByArchetype: Record<ArchetypeKey, string>;
-}
-
-export interface ExperienceModifier {
-  label: string;
-  impactByArchetype: Record<ArchetypeKey, string>;
 }
 
 export interface GeneratedPersona {
   name: string;
+  instanceName: string;
   role: string;
   badge: string;
-  definition: string;
-  coreContext: string;
+  modifier: string;
   motivation: string;
   quote: string;
   frictions: string[];
   jtbds: JTBD[];
-  contextImpact: string;
-  experienceImpact: string;
 }
 
-// Data dictionaries
-export const baseData: Record<ArchetypeKey, ArchetypeData> = {
-  producer: {
-    title: "The Producer",
-    subtitle: "The Enabler",
-    badge: "Producer",
-    definition:
-      "The technical user who creates the underlying assets (Data Pipelines, API Integrations, AI Models) that others will use. They are responsible for the 'plumbing.'",
-    coreContext: "Data Engineering, Backend Platform, Integration Engineering",
+// Persona Instances based on the table
+export const personaInstances: PersonaInstance[] = [
+  {
+    instanceName: "The Standardization Architect",
+    archetype: "producer",
+    archetypeTitle: "The Producer",
+    archetypeSubtitle: "The Enabler",
+    context: "pdx",
+    contextLabel: "PDX (Platform)",
+    experience: "senior",
+    experienceLabel: "Senior / Expert",
+    modifier: 'Needs "Golden Signals" and strict standardization',
     motivation: "Build once, reuse everywhere.",
-    universalFriction:
-      "Undifferentiated heavy lifting—manually setting up infrastructure, scaffolding, or boilerplate config instead of writing logic.",
+    friction:
+      "Undifferentiated heavy lifting—manually scaffolding infrastructure instead of writing logic.",
     jtbds: [
       {
         type: "Functional",
@@ -68,16 +63,45 @@ export const baseData: Record<ArchetypeKey, ArchetypeData> = {
       },
     ],
   },
-  consumer: {
-    title: "The Consumer",
-    subtitle: "The Maker",
-    badge: "Consumer",
-    definition:
-      "The user who applies the platform capabilities to build business value. They 'consume' the APIs, Data, or Models produced by Producers to build features (TurboTax UI, Credit Karma offers, etc.).",
-    coreContext: "App Developers (Web/Mobile), Data Analysts, ML Engineers",
-    motivation: "Time to Value.",
-    universalFriction:
-      "The Treasure Hunt—struggling to find the right documentation, API keys, or access permissions to get started.",
+  {
+    instanceName: 'The "Shadow IT" Builder',
+    archetype: "producer",
+    archetypeTitle: "The Producer",
+    archetypeSubtitle: "The Enabler",
+    context: "gbsg",
+    contextLabel: "GBSG (Small Biz)",
+    experience: "senior",
+    experienceLabel: "Senior",
+    modifier: "Speed > Standards—will bypass platform if too slow",
+    motivation: "I need to unblock my team now.",
+    friction:
+      'Rigid wizards that hide complexity—"Give me the escape hatch."',
+    jtbds: [
+      {
+        type: "Functional",
+        statement:
+          "When the platform is too slow, I want to build bespoke pipelines, so that I can bypass platform lag and deliver on time.",
+      },
+      {
+        type: "Social",
+        statement:
+          'When I need to move fast, I want to avoid "asking for permission" from central platform teams, so that I can unblock my team immediately.',
+      },
+    ],
+  },
+  {
+    instanceName: 'The "Copy-Paste" Maker',
+    archetype: "consumer",
+    archetypeTitle: "The Consumer",
+    archetypeSubtitle: "The Maker",
+    context: "cg",
+    contextLabel: "CG (Consumer/Tax)",
+    experience: "junior",
+    experienceLabel: "Junior / Novice",
+    modifier: "Compliance-focused, relies on copy-pasting code snippets",
+    motivation: "Time to Value—I view the platform as a utility.",
+    friction:
+      "The Treasure Hunt—struggling to find the right API keys, documentation, or access permissions.",
     jtbds: [
       {
         type: "Functional",
@@ -91,122 +115,113 @@ export const baseData: Record<ArchetypeKey, ArchetypeData> = {
       },
     ],
   },
-  operator: {
-    title: "The Operator",
-    subtitle: "The Maintainer",
-    badge: "Operator",
-    definition:
-      "The user responsible for the health, reliability, and lifecycle of the systems in production. They are the 'Firefighters.'",
-    coreContext: "SRE, Production Tech Support (PTS), L3 Support",
-    motivation: "Mean Time to Resolution (MTTR).",
-    universalFriction:
-      "Alert Fatigue and Black Boxes—being woken up by alerts they can't fix or don't understand.",
+  {
+    instanceName: "The Ecosystem Integrator",
+    archetype: "consumer",
+    archetypeTitle: "The Consumer",
+    archetypeSubtitle: "The Maker",
+    context: "gbsg",
+    contextLabel: "GBSG (Small Biz)",
+    experience: "senior",
+    experienceLabel: "Senior",
+    modifier: "Focused on workflow integration and ecosystem connectivity",
+    motivation: "Seamless connectivity across products.",
+    friction: "Rate limits and architectural constraints blocking integration.",
     jtbds: [
       {
         type: "Functional",
         statement:
-          "When an incident occurs, I want to know immediately if it's 'Us vs. Them' (Internal code vs. External Provider), so I can route the ticket correctly.",
+          "When I design integrations, I want to architect complex cross-product flows (QuickBooks ↔ Mailchimp), so that I can deliver seamless user experiences.",
+      },
+      {
+        type: "Functional",
+        statement:
+          "When evaluating new APIs, I want to assess latency and reliability upfront, so that I can make informed architectural decisions.",
+      },
+    ],
+  },
+  {
+    instanceName: "The Runbook Responder",
+    archetype: "operator",
+    archetypeTitle: "The Operator",
+    archetypeSubtitle: "The Maintainer",
+    context: "idx",
+    contextLabel: "IDX (Connectivity)",
+    experience: "junior",
+    experienceLabel: "Junior",
+    modifier: "Runbook-dependent, needs step-by-step guidance",
+    motivation: "Mean Time to Resolution (MTTR)—clarity over raw data.",
+    friction:
+      "Black Boxes—being woken up by alerts I can't understand or fix.",
+    jtbds: [
+      {
+        type: "Functional",
+        statement:
+          'When an incident occurs, I want to immediately identify if it\'s "Us vs. Them" (Internal code vs. 3rd Party Provider), so that I can route the ticket correctly.',
       },
       {
         type: "Social",
         statement:
-          "When I hand off an issue, I want a full audit trail, so engineering doesn't bounce it back to me.",
+          "When I hand off an issue, I want a full audit trail, so that engineering doesn't bounce it back to me.",
       },
     ],
   },
-  steward: {
-    title: "The Steward",
-    subtitle: "The Governor",
-    badge: "Steward",
-    definition:
-      "The non-coding (or low-coding) user responsible for standards, compliance, cost, and quality.",
-    coreContext:
-      "Engineering Managers, Data Stewards, Security Officers, TPMs",
+  {
+    instanceName: "The Compliance Gatekeeper",
+    archetype: "steward",
+    archetypeTitle: "The Steward",
+    archetypeSubtitle: "The Governor",
+    context: "cg",
+    contextLabel: "CG (Consumer/Tax)",
+    experience: "senior",
+    experienceLabel: "Tenured Manager",
+    modifier: "PII-obsessed, focused on regulatory compliance",
     motivation: "Risk Mitigation & Efficiency.",
-    universalFriction:
-      "Fragmented Visibility—having to check 10 different dashboards to answer 'Are we compliant?'",
+    friction:
+      'Fragmented Visibility—having to check 10 different dashboards to answer "Are we compliant?"',
     jtbds: [
       {
         type: "Functional",
         statement:
-          "When I audit my team's assets, I want a single dashboard of 'Health Scores,' so I can prioritize technical debt.",
+          'When I audit my team\'s assets, I want a single "Health Score" dashboard, so that I can prioritize technical debt effectively.',
       },
       {
         type: "Emotional",
         statement:
-          "When a new regulation passes, I want automated enforcement, so I can sleep at night knowing we aren't exposed.",
+          "When a new regulation passes, I want automated enforcement, so that I can sleep at night knowing we aren't exposed.",
       },
     ],
   },
-};
+];
 
-export const contextModifiers: Record<ContextKey, ContextModifier> = {
-  pdx: {
-    label: "PDX (Platform)",
-    impactByArchetype: {
-      producer:
-        "Needs strict adherence to 'Golden Signals' and standardization.",
-      consumer: "Focused on platform-level integrations and internal tooling.",
-      operator:
-        "Monitors system-wide health and aggregate latency across the platform.",
-      steward:
-        "Oversees platform-wide standards and cross-team compliance metrics.",
-    },
+// Archetype base data for tooltips and descriptions
+export const archetypeInfo: Record<
+  ArchetypeKey,
+  { title: string; subtitle: string; description: string }
+> = {
+  producer: {
+    title: "The Producer",
+    subtitle: "The Enabler",
+    description:
+      "The technical user who creates the underlying assets (Data Pipelines, API Integrations, AI Models) that others will use. They are responsible for the 'plumbing.'",
   },
-  gbsg: {
-    label: "GBSG (Small Biz)",
-    impactByArchetype: {
-      producer:
-        "Needs speed; will bypass standards if the platform is too slow ('Shadow IT').",
-      consumer:
-        "Heavily focused on 'Workflow Integration' and ecosystem connectivity (QuickBooks, Mailchimp).",
-      operator:
-        "Monitors user-impact on specific business flows and partner integrations.",
-      steward:
-        "Focused on data quality and external partner reliability.",
-    },
+  consumer: {
+    title: "The Consumer",
+    subtitle: "The Maker",
+    description:
+      "The user who applies the platform capabilities to build business value. They 'consume' the APIs, Data, or Models to build features.",
   },
-  cg: {
-    label: "CG (Consumer/Tax)",
-    impactByArchetype: {
-      producer:
-        "Must navigate strict compliance requirements and PII handling protocols.",
-      consumer:
-        "Heavily focused on 'Compliance' and data privacy/security constraints.",
-      operator:
-        "Monitors user-impact (e.g., 'Can the user file their taxes?'); cares about specific critical flows.",
-      steward:
-        "Obsessed with PII (Personally Identifiable Information) and Tax compliance.",
-    },
+  operator: {
+    title: "The Operator",
+    subtitle: "The Maintainer",
+    description:
+      "The user responsible for the health, reliability, and lifecycle of systems in production. They are the 'Firefighters.'",
   },
-};
-
-export const expModifiers: Record<ExperienceKey, ExperienceModifier> = {
-  junior: {
-    label: "Junior / Novice",
-    impactByArchetype: {
-      producer:
-        "Needs 'Paved Roads' and CLI wizards; paralyzed by blank slate. Requires 'Hello World' examples and conceptual diagrams.",
-      consumer:
-        "Relies entirely on copy-pasting code snippets; needs robust documentation and examples.",
-      operator:
-        "Needs 'Runbooks' and step-by-step remediation guides. Requires visual topology maps to understand dependencies.",
-      steward:
-        "Focuses on 'Team Velocity' and unblocking developers. New to governance processes.",
-    },
-  },
-  senior: {
-    label: "Senior / Lead",
-    impactByArchetype: {
-      producer:
-        "Needs 'Escape Hatches'; frustrated by rigid wizards that hide complexity. Wants full control.",
-      consumer:
-        "Looks for architecture patterns and limitations (rate limits, latency). May resist new tools unless 10x better.",
-      operator:
-        "Needs deep-dive observability tools (Splunk/Wavefront) to hunt root causes independently.",
-      steward:
-        "Focuses on 'Operational Excellence' and long-term stability. Experienced with compliance frameworks.",
-    },
+  steward: {
+    title: "The Steward",
+    subtitle: "The Governor",
+    description:
+      "The non-coding user responsible for standards, compliance, cost, and quality governance.",
   },
 };
 
@@ -222,6 +237,7 @@ export const contextOptions = [
   { value: "pdx", label: "PDX (Platform)" },
   { value: "gbsg", label: "GBSG (Small Biz)" },
   { value: "cg", label: "CG (Consumer/Tax)" },
+  { value: "idx", label: "IDX (Connectivity)" },
 ] as const;
 
 export const experienceOptions = [
@@ -229,34 +245,58 @@ export const experienceOptions = [
   { value: "senior", label: "Senior / Lead" },
 ] as const;
 
+// Find matching persona instance
+function findPersonaInstance(
+  archetype: ArchetypeKey,
+  context: ContextKey,
+  experience: ExperienceKey
+): PersonaInstance | null {
+  return (
+    personaInstances.find(
+      (p) =>
+        p.archetype === archetype &&
+        p.context === context &&
+        p.experience === experience
+    ) || null
+  );
+}
+
+// Find closest matching persona (same archetype, any context/experience)
+function findClosestPersona(archetype: ArchetypeKey): PersonaInstance {
+  return (
+    personaInstances.find((p) => p.archetype === archetype) ||
+    personaInstances[0]
+  );
+}
+
 // Persona generation function
 export function generatePersona(
   archetype: ArchetypeKey,
   context: ContextKey,
   experience: ExperienceKey
 ): GeneratedPersona {
-  const base = baseData[archetype];
-  const modCtx = contextModifiers[context];
-  const modExp = expModifiers[experience];
+  // Try to find exact match
+  let instance = findPersonaInstance(archetype, context, experience);
+
+  // If no exact match, find closest by archetype
+  if (!instance) {
+    instance = findClosestPersona(archetype);
+  }
 
   const expLabel = experience === "senior" ? "Sr." : "Jr.";
+  const contextLabel =
+    contextOptions.find((c) => c.value === context)?.label || context;
 
   return {
-    name: `${base.title} (${expLabel})`,
-    role: `${base.subtitle} | ${modCtx.label} | ${modExp.label}`,
-    badge: base.badge,
-    definition: base.definition,
-    coreContext: base.coreContext,
-    motivation: base.motivation,
-    quote: base.motivation,
-    frictions: [
-      base.universalFriction,
-      modCtx.impactByArchetype[archetype],
-      modExp.impactByArchetype[archetype],
-    ],
-    jtbds: base.jtbds,
-    contextImpact: modCtx.impactByArchetype[archetype],
-    experienceImpact: modExp.impactByArchetype[archetype],
+    name: `${instance.archetypeTitle} (${expLabel})`,
+    instanceName: instance.instanceName,
+    role: `${instance.archetypeSubtitle} | ${contextLabel} | ${instance.experienceLabel}`,
+    badge: instance.archetypeTitle.replace("The ", ""),
+    modifier: instance.modifier,
+    motivation: instance.motivation,
+    quote: instance.motivation,
+    frictions: [instance.friction],
+    jtbds: instance.jtbds,
   };
 }
 
@@ -266,36 +306,33 @@ export function getAllJTBDsWithContext() {
     id: string;
     archetype: ArchetypeKey;
     archetypeLabel: string;
+    instanceName: string;
     context: ContextKey;
     contextLabel: string;
     experience: ExperienceKey;
     experienceLabel: string;
     jtbd: JTBD;
-    contextImpact: string;
-    experienceImpact: string;
+    modifier: string;
+    motivation: string;
+    friction: string;
   }> = [];
 
-  for (const archKey of Object.keys(baseData) as ArchetypeKey[]) {
-    const arch = baseData[archKey];
-    for (const ctxKey of Object.keys(contextModifiers) as ContextKey[]) {
-      const ctx = contextModifiers[ctxKey];
-      for (const expKey of Object.keys(expModifiers) as ExperienceKey[]) {
-        const exp = expModifiers[expKey];
-        for (const jtbd of arch.jtbds) {
-          results.push({
-            id: `${archKey}-${ctxKey}-${expKey}-${jtbd.type}`,
-            archetype: archKey,
-            archetypeLabel: arch.badge,
-            context: ctxKey,
-            contextLabel: ctx.label,
-            experience: expKey,
-            experienceLabel: exp.label,
-            jtbd,
-            contextImpact: ctx.impactByArchetype[archKey],
-            experienceImpact: exp.impactByArchetype[archKey],
-          });
-        }
-      }
+  for (const instance of personaInstances) {
+    for (const jtbd of instance.jtbds) {
+      results.push({
+        id: `${instance.archetype}-${instance.context}-${instance.experience}-${jtbd.type}-${results.length}`,
+        archetype: instance.archetype,
+        archetypeLabel: instance.archetypeTitle.replace("The ", ""),
+        instanceName: instance.instanceName,
+        context: instance.context,
+        contextLabel: instance.contextLabel,
+        experience: instance.experience,
+        experienceLabel: instance.experienceLabel,
+        jtbd,
+        modifier: instance.modifier,
+        motivation: instance.motivation,
+        friction: instance.friction,
+      });
     }
   }
 

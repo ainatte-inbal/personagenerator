@@ -8,7 +8,7 @@ import {
   contextOptions,
   experienceOptions,
   getAllJTBDsWithContext,
-  baseData,
+  archetypeInfo,
   ArchetypeKey,
 } from "@/lib/personaData";
 
@@ -235,7 +235,7 @@ export default function JTBDPage() {
                   selected={archetypeFilters.has(opt.value)}
                   onClick={() => toggleArchetype(opt.value)}
                   colorClass="bg-blue-100 text-blue-800 ring-blue-400"
-                  tooltip={baseData[opt.value as ArchetypeKey].definition}
+                  tooltip={archetypeInfo[opt.value as ArchetypeKey].description}
                 />
               ))}
             </div>
@@ -337,11 +337,13 @@ export default function JTBDPage() {
           <JTBDCard
             key={item.id}
             archetype={item.archetypeLabel}
+            instanceName={item.instanceName}
             context={item.contextLabel}
             experience={item.experienceLabel}
             jtbd={item.jtbd}
-            contextImpact={item.contextImpact}
-            experienceImpact={item.experienceImpact}
+            modifier={item.modifier}
+            motivation={item.motivation}
+            friction={item.friction}
           />
         ))}
       </div>

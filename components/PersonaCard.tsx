@@ -30,6 +30,9 @@ export default function PersonaCard({ persona }: PersonaCardProps) {
           {/* Header */}
           <div className="flex justify-between items-start">
             <div>
+              <p className="text-sm text-intuit-blue font-semibold mb-1">
+                {persona.instanceName}
+              </p>
               <h2 className="text-2xl font-bold text-gray-900">
                 {persona.name}
               </h2>
@@ -42,28 +45,22 @@ export default function PersonaCard({ persona }: PersonaCardProps) {
             </span>
           </div>
 
-          {/* Definition */}
-          <p className="mt-4 text-gray-600 leading-relaxed">
-            {persona.definition}
-          </p>
-
-          {/* Core Context & Motivation */}
-          <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex-1 min-w-[200px]">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                Core Context
-              </p>
-              <p className="text-sm text-gray-700">{persona.coreContext}</p>
-            </div>
-            <div className="flex-1 min-w-[200px]">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
-                Core Motivation
-              </p>
-              <p className="text-sm text-gray-700 font-medium">
-                &ldquo;{persona.motivation}&rdquo;
-              </p>
-            </div>
+          {/* Modifier */}
+          <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
+            <p className="text-sm text-amber-800">
+              <span className="font-semibold">Modifier:</span> {persona.modifier}
+            </p>
           </div>
+
+          {/* Motivation */}
+          <blockquote className="mt-4 border-l-4 border-intuit-blue pl-4">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+              Core Motivation
+            </p>
+            <p className="text-gray-800 text-lg font-medium">
+              &ldquo;{persona.motivation}&rdquo;
+            </p>
+          </blockquote>
 
           <hr className="my-6 border-gray-100" />
 
@@ -73,7 +70,7 @@ export default function PersonaCard({ persona }: PersonaCardProps) {
             <div>
               <h3 className="font-bold text-gray-800 flex items-center mb-3">
                 <span className="mr-2">🧨</span>
-                Friction Points
+                Key Friction
               </h3>
               <ul className="space-y-3">
                 {persona.frictions.map((friction, index) => (
@@ -103,26 +100,6 @@ export default function PersonaCard({ persona }: PersonaCardProps) {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-
-          <hr className="my-6 border-gray-100" />
-
-          {/* Context & Experience Impact */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="text-sm font-semibold text-blue-800 mb-2">
-                📍 Context Impact
-              </h4>
-              <p className="text-sm text-blue-900">{persona.contextImpact}</p>
-            </div>
-            <div className="bg-amber-50 p-4 rounded-lg">
-              <h4 className="text-sm font-semibold text-amber-800 mb-2">
-                📊 Experience Impact
-              </h4>
-              <p className="text-sm text-amber-900">
-                {persona.experienceImpact}
-              </p>
             </div>
           </div>
         </div>

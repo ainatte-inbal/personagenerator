@@ -5,11 +5,13 @@ import { JTBD } from "@/lib/personaData";
 
 interface JTBDCardProps {
   archetype: string;
+  instanceName: string;
   context: string;
   experience: string;
   jtbd: JTBD;
-  contextImpact: string;
-  experienceImpact: string;
+  modifier: string;
+  motivation: string;
+  friction: string;
 }
 
 function JTBDTypeBadge({ type }: { type: string }) {
@@ -30,11 +32,13 @@ function JTBDTypeBadge({ type }: { type: string }) {
 
 export default function JTBDCard({
   archetype,
+  instanceName,
   context,
   experience,
   jtbd,
-  contextImpact,
-  experienceImpact,
+  modifier,
+  motivation,
+  friction,
 }: JTBDCardProps) {
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -51,6 +55,11 @@ export default function JTBDCard({
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow">
+      {/* Instance Name */}
+      <p className="text-sm font-semibold text-intuit-blue mb-2">
+        {instanceName}
+      </p>
+
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-3">
         <span className="bg-blue-100 text-intuit-blue text-xs font-semibold px-2 py-1 rounded">
@@ -70,20 +79,24 @@ export default function JTBDCard({
         &ldquo;{jtbd.statement}&rdquo;
       </p>
 
-      {/* Expandable Impact Details */}
+      {/* Expandable Details */}
       {expanded && (
         <div className="mb-4 space-y-2 text-sm animate-fade-in-up">
           <div className="bg-blue-50 p-3 rounded">
             <p className="font-semibold text-blue-800 text-xs mb-1">
-              Context Impact
+              Motivation
             </p>
-            <p className="text-blue-900">{contextImpact}</p>
+            <p className="text-blue-900">&ldquo;{motivation}&rdquo;</p>
           </div>
           <div className="bg-amber-50 p-3 rounded">
             <p className="font-semibold text-amber-800 text-xs mb-1">
-              Experience Impact
+              Modifier
             </p>
-            <p className="text-amber-900">{experienceImpact}</p>
+            <p className="text-amber-900">{modifier}</p>
+          </div>
+          <div className="bg-red-50 p-3 rounded">
+            <p className="font-semibold text-red-800 text-xs mb-1">Friction</p>
+            <p className="text-red-900">{friction}</p>
           </div>
         </div>
       )}
