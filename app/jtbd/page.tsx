@@ -133,23 +133,27 @@ export default function JTBDPage() {
 
   const downloadCSV = () => {
     const headers = [
+      "Instance Name",
       "Archetype",
       "Context",
       "Experience",
       "JTBD Type",
       "JTBD Statement",
-      "Context Impact",
-      "Experience Impact",
+      "Motivation",
+      "Modifier",
+      "Friction",
     ];
 
     const rows = filteredJTBDs.map((item) => [
+      `"${item.instanceName.replace(/"/g, '""')}"`,
       item.archetypeLabel,
       item.contextLabel,
       item.experienceLabel,
       item.jtbd.type,
       `"${item.jtbd.statement.replace(/"/g, '""')}"`,
-      `"${item.contextImpact.replace(/"/g, '""')}"`,
-      `"${item.experienceImpact.replace(/"/g, '""')}"`,
+      `"${item.motivation.replace(/"/g, '""')}"`,
+      `"${item.modifier.replace(/"/g, '""')}"`,
+      `"${item.friction.replace(/"/g, '""')}"`,
     ]);
 
     const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
