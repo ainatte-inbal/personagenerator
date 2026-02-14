@@ -23,9 +23,9 @@ export default function ArchetypeDescription({
     <div className="max-w-4xl w-full mt-6 animate-fade-in-up">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-intuit-blue to-blue-600 px-6 py-4">
-          <h2 className="text-xl font-bold text-white">{titles[archetype]}</h2>
-          <p className="text-blue-100 italic mt-1">&ldquo;{desc.tagline}&rdquo;</p>
+        <div className="px-6 py-4 border-b border-gray-100">
+          <h2 className="text-lg font-semibold text-gray-700">{titles[archetype]}</h2>
+          <p className="text-gray-500 italic text-sm mt-1">&ldquo;{desc.tagline}&rdquo;</p>
         </div>
 
         <div className="p-6 space-y-6">
