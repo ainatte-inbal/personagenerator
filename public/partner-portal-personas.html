@@ -37,10 +37,7 @@
       padding: 48px 40px 40px;
     }
 
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .header-inner { max-width: 1200px; margin: 0 auto; }
 
     .header-badge {
       display: inline-flex;
@@ -58,35 +55,18 @@
     }
 
     .header-badge .dot {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: #FFD700;
       animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
+    header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    header p.subtitle { font-size: 16px; opacity: 0.8; margin-bottom: 32px; }
 
-    header p.subtitle {
-      font-size: 16px;
-      opacity: 0.8;
-      margin-bottom: 32px;
-    }
-
-    .header-meta {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
+    .header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
 
     .meta-chip {
       display: flex;
@@ -101,7 +81,7 @@
     .meta-chip .label { opacity: 0.65; font-weight: 500; }
     .meta-chip .value { font-weight: 600; }
 
-    /* SUMMARY MATRIX */
+    /* MATRIX */
     .matrix-section {
       max-width: 1200px;
       margin: 40px auto 0;
@@ -115,17 +95,8 @@
       margin-bottom: 20px;
     }
 
-    .section-header h2 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .section-divider {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text); }
+    .section-divider { flex: 1; height: 1px; background: var(--border); }
 
     .matrix-table {
       width: 100%;
@@ -137,9 +108,7 @@
       border: 1px solid var(--border);
     }
 
-    .matrix-table thead tr {
-      background: #F8F9FB;
-    }
+    .matrix-table thead tr { background: #F8F9FB; }
 
     .matrix-table th {
       padding: 12px 16px;
@@ -160,22 +129,14 @@
     }
 
     .matrix-table tbody tr:last-child td { border-bottom: none; }
-
     .matrix-table tbody tr:hover { background: #F8FBFF; }
 
-    .persona-name-cell {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .persona-name-cell { display: flex; align-items: center; gap: 10px; }
 
     .persona-icon {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 16px;
       flex-shrink: 0;
     }
@@ -254,26 +215,15 @@
     }
 
     .card-icon-wrap {
-      width: 48px;
-      height: 48px;
+      width: 48px; height: 48px;
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 24px;
       flex-shrink: 0;
     }
 
-    .card-title h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .card-title .source-role {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
+    .card-title h3 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+    .card-title .source-role { font-size: 13px; color: var(--text-secondary); }
 
     .card-tagline {
       margin-top: 12px;
@@ -286,22 +236,11 @@
       border-left: 3px solid;
     }
 
-    .card-body {
-      padding: 20px 24px;
-    }
+    .card-body { padding: 20px 24px; }
 
-    .info-row {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
+    .info-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
 
-    .info-chip {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .info-chip { display: flex; flex-direction: column; gap: 2px; }
 
     .info-chip .chip-label {
       font-size: 10px;
@@ -311,15 +250,9 @@
       color: var(--text-light);
     }
 
-    .info-chip .chip-value {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-    }
+    .info-chip .chip-value { font-size: 13px; font-weight: 600; color: var(--text); }
 
-    .card-section {
-      margin-bottom: 20px;
-    }
+    .card-section { margin-bottom: 20px; }
 
     .card-section-title {
       font-size: 11px;
@@ -365,31 +298,57 @@
 
     .responsibilities-list li::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       margin-top: 6px;
       flex-shrink: 0;
     }
 
+    /* JOB STORY */
     .jtbd-box {
       background: var(--bg);
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 16px 18px;
     }
 
-    .jtbd-goal {
-      font-size: 13px;
-      color: var(--text);
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-
-    .friction-list {
+    .job-story {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      margin-bottom: 16px;
     }
+
+    .job-story-line {
+      display: flex;
+      gap: 10px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .job-story-keyword {
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 10px;
+      margin-top: 1px;
+      white-space: nowrap;
+    }
+
+    .job-story-text { color: var(--text); }
+
+    .friction-divider {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .friction-list { display: flex; flex-direction: column; gap: 8px; }
 
     .friction-item {
       display: flex;
@@ -418,8 +377,7 @@
       border-left: 3px solid;
     }
 
-    /* PERSONA COLOR THEMES */
-    /* API Scout — blue */
+    /* THEMES */
     .theme-blue .card-accent { background: linear-gradient(90deg, #0077C5, #00A6A0); }
     .theme-blue .card-icon-wrap { background: #E8F4FF; }
     .theme-blue .card-tagline { border-color: var(--intuit-blue); }
@@ -427,8 +385,8 @@
     .theme-blue .mental-model-pill { background: #E8F4FF; color: var(--intuit-blue-dark); }
     .theme-blue .responsibilities-list li::before { background: var(--intuit-blue); }
     .theme-blue .strategic-value-box { background: #E8F4FF; border-color: var(--intuit-blue); color: #004A7F; }
+    .theme-blue .job-story-keyword { background: #E8F4FF; color: var(--intuit-blue-dark); }
 
-    /* Deal Closer — teal */
     .theme-teal .card-accent { background: linear-gradient(90deg, #00A6A0, #0077C5); }
     .theme-teal .card-icon-wrap { background: #E6F7F6; }
     .theme-teal .card-tagline { border-color: var(--intuit-teal); }
@@ -436,8 +394,8 @@
     .theme-teal .mental-model-pill { background: #E6F7F6; color: #007A76; }
     .theme-teal .responsibilities-list li::before { background: var(--intuit-teal); }
     .theme-teal .strategic-value-box { background: #E6F7F6; border-color: var(--intuit-teal); color: #005E5A; }
+    .theme-teal .job-story-keyword { background: #E6F7F6; color: #007A76; }
 
-    /* Gatekeeper — purple */
     .theme-purple .card-accent { background: linear-gradient(90deg, #7B5EA7, #0077C5); }
     .theme-purple .card-icon-wrap { background: #F2EEF9; }
     .theme-purple .card-tagline { border-color: var(--intuit-purple); }
@@ -445,8 +403,8 @@
     .theme-purple .mental-model-pill { background: #F2EEF9; color: var(--intuit-purple); }
     .theme-purple .responsibilities-list li::before { background: var(--intuit-purple); }
     .theme-purple .strategic-value-box { background: #F2EEF9; border-color: var(--intuit-purple); color: #5A3F88; }
+    .theme-purple .job-story-keyword { background: #F2EEF9; color: var(--intuit-purple); }
 
-    /* Firefighter — orange */
     .theme-orange .card-accent { background: linear-gradient(90deg, #F5A623, #D0021B); }
     .theme-orange .card-icon-wrap { background: #FFF5E6; }
     .theme-orange .card-tagline { border-color: var(--intuit-orange); }
@@ -454,8 +412,9 @@
     .theme-orange .mental-model-pill { background: #FFF5E6; color: #C07800; }
     .theme-orange .responsibilities-list li::before { background: var(--intuit-orange); }
     .theme-orange .strategic-value-box { background: #FFF5E6; border-color: var(--intuit-orange); color: #8A5200; }
+    .theme-orange .job-story-keyword { background: #FFF5E6; color: #C07800; }
 
-    /* ALERT BOX */
+    /* ALERT */
     .alert-box {
       max-width: 1200px;
       margin: 0 auto 32px;
@@ -474,20 +433,9 @@
     }
 
     .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .alert-content .alert-title { font-size: 14px; font-weight: 700; color: #8A5200; margin-bottom: 4px; }
+    .alert-content p { font-size: 13px; color: #7A5000; }
 
-    .alert-content .alert-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #8A5200;
-      margin-bottom: 4px;
-    }
-
-    .alert-content p {
-      font-size: 13px;
-      color: #7A5000;
-    }
-
-    /* FOOTER */
     footer {
       background: var(--text);
       color: rgba(255,255,255,0.5);
@@ -530,7 +478,7 @@
     </div>
   </header>
 
-  <!-- SUMMARY MATRIX -->
+  <!-- MATRIX -->
   <div class="matrix-section">
     <div class="section-header">
       <h2>Summary Matrix</h2>
@@ -548,48 +496,28 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-            <div class="persona-name-cell">
-              <div class="persona-icon" style="background:#E8F4FF;">&#128270;</div>
-              <strong>The API Scout</strong>
-            </div>
-          </td>
+          <td><div class="persona-name-cell"><div class="persona-icon" style="background:#E8F4FF;">&#128270;</div><strong>The API Scout</strong></div></td>
           <td><span class="archetype-tag" style="background:#E8F4FF;color:#0077C5;">Consumer (Maker)</span></td>
           <td>External (public)</td>
           <td><span class="phase-tag">Phase 1</span></td>
           <td class="okr-text">Onboarding -40% &bull; Tickets -35%</td>
         </tr>
         <tr>
-          <td>
-            <div class="persona-name-cell">
-              <div class="persona-icon" style="background:#E6F7F6;">&#128203;</div>
-              <strong>The Deal Closer</strong>
-            </div>
-          </td>
+          <td><div class="persona-name-cell"><div class="persona-icon" style="background:#E6F7F6;">&#128203;</div><strong>The Deal Closer</strong></div></td>
           <td><span class="archetype-tag" style="background:#E6F7F6;color:#007A76;">Consumer &rarr; Steward</span></td>
           <td>External + Internal</td>
           <td><span class="phase-tag">Phase 1&ndash;2</span></td>
           <td class="okr-text">Onboarding -40% &bull; DAA formalization</td>
         </tr>
         <tr>
-          <td>
-            <div class="persona-name-cell">
-              <div class="persona-icon" style="background:#F2EEF9;">&#128274;</div>
-              <strong>The Gatekeeper</strong>
-            </div>
-          </td>
+          <td><div class="persona-name-cell"><div class="persona-icon" style="background:#F2EEF9;">&#128274;</div><strong>The Gatekeeper</strong></div></td>
           <td><span class="archetype-tag" style="background:#F2EEF9;color:#7B5EA7;">Operator + Steward</span></td>
           <td>Internal (authenticated)</td>
           <td><span class="phase-tag">Phase 1</span></td>
           <td class="okr-text">Onboarding -40% &bull; RBAC integrity</td>
         </tr>
         <tr>
-          <td>
-            <div class="persona-name-cell">
-              <div class="persona-icon" style="background:#FFF5E6;">&#128293;</div>
-              <strong>The Integration Firefighter</strong>
-            </div>
-          </td>
+          <td><div class="persona-name-cell"><div class="persona-icon" style="background:#FFF5E6;">&#128293;</div><strong>The Integration Firefighter</strong></div></td>
           <td><span class="archetype-tag" style="background:#FFF5E6;color:#C07800;">Operator (Maintainer)</span></td>
           <td>Internal (authenticated)</td>
           <td><span class="phase-tag">Phase 2&ndash;3</span></td>
@@ -599,7 +527,7 @@
     </table>
   </div>
 
-  <!-- FLAGGED GAP -->
+  <!-- ALERT -->
   <div class="alert-box" style="margin-top:24px;">
     <div class="alert-inner">
       <div class="alert-icon">&#9888;&#65039;</div>
@@ -630,7 +558,7 @@
               <div class="source-role">Prospective Partner Engineer</div>
             </div>
           </div>
-          <div class="card-tagline theme-blue">
+          <div class="card-tagline">
             Evaluating whether Intuit's integration requirements are technically achievable before committing organizational resources.
           </div>
         </div>
@@ -658,7 +586,7 @@
 
           <div class="card-section">
             <div class="card-section-title">Key Responsibilities</div>
-            <ul class="responsibilities-list theme-blue">
+            <ul class="responsibilities-list">
               <li>Evaluate FDX 6.3/6.4, UK Open Banking 4.0, CDR 1.0 specs for system compatibility</li>
               <li>Validate OIDC FAPI v1/v2 auth requirements against existing auth stack</li>
               <li>Complete and submit the Technical Assessment (TA) document</li>
@@ -668,21 +596,35 @@
           </div>
 
           <div class="card-section">
-            <div class="card-section-title">Jobs to be Done</div>
+            <div class="card-section-title">Job Story</div>
             <div class="jtbd-box">
-              <div class="jtbd-goal"><strong>Goal:</strong> Quickly determine required vs. conditional vs. optional fields to scope engineering effort and produce an accurate TA.</div>
+              <div class="job-story">
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-blue">When</span>
+                  <span class="job-story-text">I'm scoping a new Intuit partner integration and need to assess technical feasibility,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-blue">I want to</span>
+                  <span class="job-story-text">find all required, conditional, and optional API fields — alongside OIDC FAPI auth requirements — in a single structured reference,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-blue">so that I can</span>
+                  <span class="job-story-text">accurately scope engineering effort, complete the Technical Assessment without back-and-forth, and get to implementation faster.</span>
+                </div>
+              </div>
+              <div class="friction-divider">Friction Points</div>
               <div class="friction-list">
                 <div class="friction-item">
                   <span class="friction-badge">First Mile</span>
-                  <span class="friction-desc">API specs not in one place pre-portal; engineers had to contact Intuit directly, introducing delay.</span>
+                  <span class="friction-desc">API specs scattered across contacts and sources pre-portal; engineers must reach out to Intuit directly just to begin scoping.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Doc Maze</span>
-                  <span class="friction-desc">Without a structured spec reference, field-level ambiguity stalls TA completion.</span>
+                  <span class="friction-desc">Without a Plaid-style structured reference, field-level ambiguity (required vs. optional) stalls TA completion.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Unclear Value</span>
-                  <span class="friction-desc">Without a guided structure, engineers escalate to business lead to "call Intuit" instead of self-serving.</span>
+                  <span class="friction-desc">Without guided structure, engineers abandon self-service and escalate to their business lead to "call Intuit."</span>
                 </div>
               </div>
             </div>
@@ -708,7 +650,7 @@
               <div class="source-role">Partner Business Lead / Legal-Operations</div>
             </div>
           </div>
-          <div class="card-tagline theme-teal">
+          <div class="card-tagline">
             Moving the partnership from business interest to signed contract as efficiently and compliantly as possible.
           </div>
         </div>
@@ -736,7 +678,7 @@
 
           <div class="card-section">
             <div class="card-section-title">Key Responsibilities</div>
-            <ul class="responsibilities-list theme-teal">
+            <ul class="responsibilities-list">
               <li>Review and download the Intuit Data Access Agreement (PDF) from the External Portal</li>
               <li>Understand the legal framework for data sharing across QB, TT, CK, Mailchimp</li>
               <li>Coordinate internal legal review and obtain authorization to proceed with KYC</li>
@@ -746,21 +688,35 @@
           </div>
 
           <div class="card-section">
-            <div class="card-section-title">Jobs to be Done</div>
+            <div class="card-section-title">Job Story</div>
             <div class="jtbd-box">
-              <div class="jtbd-goal"><strong>Goal:</strong> Understand the full legal commitment before signing; complete the DAA without needing to call an Intuit account representative.</div>
+              <div class="job-story">
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-teal">When</span>
+                  <span class="job-story-text">my organization has committed to pursuing an Intuit data integration partnership and legal review is the next gate,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-teal">I want to</span>
+                  <span class="job-story-text">access and review the full Data Access Agreement — and understand exactly when and how signing is initiated — without contacting an Intuit account representative,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-teal">so that I can</span>
+                  <span class="job-story-text">brief my legal team, align on contractual commitments, and move to signature on a predictable timeline without introducing unnecessary deal friction.</span>
+                </div>
+              </div>
+              <div class="friction-divider">Friction Points</div>
               <div class="friction-list">
                 <div class="friction-item">
                   <span class="friction-badge">Fragmented</span>
-                  <span class="friction-desc">Obtaining the DAA requires a direct Intuit relationship; no self-serve preview path pre-KYC creates sales-cycle drag.</span>
+                  <span class="friction-desc">No self-serve DAA preview pre-KYC; obtaining it requires a direct Intuit relationship, creating avoidable sales-cycle drag.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Social Friction</span>
-                  <span class="friction-desc">Email chains with engagement managers introduce DAA version confusion and unclear signing sequence.</span>
+                  <span class="friction-desc">Email chains with engagement managers introduce DAA version confusion and ambiguity around who initiates signing.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Unclear Value</span>
-                  <span class="friction-desc">If the portal doesn't clarify that Intuit initiates signing, partners expect to self-initiate and stall the process.</span>
+                  <span class="friction-desc">If the portal doesn't clarify that Intuit initiates signing post-KYC, partners stall expecting to self-initiate.</span>
                 </div>
               </div>
             </div>
@@ -769,7 +725,7 @@
           <div class="card-section" style="margin-bottom:0">
             <div class="card-section-title">Strategic Value</div>
             <div class="strategic-value-box theme-teal">
-              Unlocks formal partner commitment. Faster DAA formalization enables cross-product integration revenue across <strong>QB, TurboTax, Credit Karma, and Mailchimp</strong>.
+              Unlocks formal partner commitment. Faster DAA formalization opens cross-product integration revenue across <strong>QB, TurboTax, Credit Karma, and Mailchimp</strong>.
             </div>
           </div>
         </div>
@@ -786,7 +742,7 @@
               <div class="source-role">Partner Requestor / Administrator</div>
             </div>
           </div>
-          <div class="card-tagline theme-purple">
+          <div class="card-tagline">
             Establishing and managing the partner's operational foothold inside Intuit's ecosystem &mdash; responsible for identity, access, and configuration integrity.
           </div>
         </div>
@@ -814,7 +770,7 @@
 
           <div class="card-section">
             <div class="card-section-title">Key Responsibilities</div>
-            <ul class="responsibilities-list theme-purple">
+            <ul class="responsibilities-list">
               <li>Register the org and complete KYC identity vetting to establish the Partner Profile</li>
               <li>Administer RBAC &mdash; controlling which internal users access which portal functions</li>
               <li>Oversee document repository: TA uploads, signed DAA archiving, logo URI config</li>
@@ -824,21 +780,35 @@
           </div>
 
           <div class="card-section">
-            <div class="card-section-title">Jobs to be Done</div>
+            <div class="card-section-title">Job Story</div>
             <div class="jtbd-box">
-              <div class="jtbd-goal"><strong>Goal:</strong> Stand up a complete, verified partner profile with correct RBAC &mdash; unblocking engineers and legal without creating security gaps.</div>
+              <div class="job-story">
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-purple">When</span>
+                  <span class="job-story-text">onboarding my organization to the Intuit Partner Portal for the first time and provisioning access for engineers, legal, and ops,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-purple">I want to</span>
+                  <span class="job-story-text">complete KYC verification and configure role-based permissions for every team member in a single, guided workflow,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-purple">so that I can</span>
+                  <span class="job-story-text">ensure each role has the right level of access without creating security gaps or depending on Intuit's team to action every access change.</span>
+                </div>
+              </div>
+              <div class="friction-divider">Friction Points</div>
               <div class="friction-list">
                 <div class="friction-item">
                   <span class="friction-badge">First Mile</span>
-                  <span class="friction-desc">KYC onboarding is opaque &mdash; unclear what docs/info are needed upfront, causing rework before Intuit can activate the profile.</span>
+                  <span class="friction-desc">KYC is opaque &mdash; unclear what documents/info are needed upfront, causing rework before Intuit can activate the profile.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Fragmented</span>
-                  <span class="friction-desc">Managing identities, documents, Salesforce ticketing, and Adobe Sign across disconnected surfaces creates audit gaps.</span>
+                  <span class="friction-desc">Managing identities, documents, Salesforce ticketing, and Adobe Sign across disconnected surfaces creates cognitive overhead and audit gaps.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Social Friction</span>
-                  <span class="friction-desc">Without self-serve RBAC, every access change requires an Intuit-side action, creating dependency and delay.</span>
+                  <span class="friction-desc">Without self-serve RBAC, every access change requires an Intuit-side action, creating dependency and delay for the partner team.</span>
                 </div>
               </div>
             </div>
@@ -864,7 +834,7 @@
               <div class="source-role">Partner Operations / Intuit Professional Services</div>
             </div>
           </div>
-          <div class="card-tagline theme-orange">
+          <div class="card-tagline">
             Resolving live integration issues with minimum friction &mdash; owns MTTD and MTTR for integration health.
           </div>
         </div>
@@ -892,7 +862,7 @@
 
           <div class="card-section">
             <div class="card-section-title">Key Responsibilities</div>
-            <ul class="responsibilities-list theme-orange">
+            <ul class="responsibilities-list">
               <li>Monitor live integrations for data quality conformance issues (auth failures, field-mapping gaps)</li>
               <li>Open and track tickets via the Salesforce widget embedded in the portal</li>
               <li>Coordinate with partner engineers on API/auth configuration remediation</li>
@@ -902,21 +872,35 @@
           </div>
 
           <div class="card-section">
-            <div class="card-section-title">Jobs to be Done</div>
+            <div class="card-section-title">Job Story</div>
             <div class="jtbd-box">
-              <div class="jtbd-goal"><strong>Goal:</strong> Identify, triage, and resolve integration issues without leaving the portal context or escalating routine problems to senior engineers.</div>
+              <div class="job-story">
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-orange">When</span>
+                  <span class="job-story-text">a live partner integration fails a conformance check or triggers an operational alert,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-orange">I want to</span>
+                  <span class="job-story-text">triage the issue, open a support ticket, and trace it against the partner's API spec and profile — all without leaving the portal,</span>
+                </div>
+                <div class="job-story-line">
+                  <span class="job-story-keyword theme-orange">so that I can</span>
+                  <span class="job-story-text">resolve it faster, confirm the fix against the same spec that flagged the error, and reduce the time a partner's data flow is degraded.</span>
+                </div>
+              </div>
+              <div class="friction-divider">Friction Points</div>
               <div class="friction-list">
                 <div class="friction-item">
                   <span class="friction-badge">Fragmented</span>
-                  <span class="friction-desc">The Salesforce widget as an iframe means mental context-switching between partner profile data and the ticketing system persists even if technically embedded.</span>
+                  <span class="friction-desc">The Salesforce widget as an iframe creates mental context-switching between partner profile data and ticketing, even if technically co-located.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Doc Maze</span>
-                  <span class="friction-desc">No real-time metrics dashboard in Phase 1&ndash;2 means manually re-testing to confirm whether a fix actually resolved the underlying issue.</span>
+                  <span class="friction-desc">No real-time metrics dashboard in Phase 1&ndash;2 means manually re-testing to confirm whether a fix resolved the underlying conformance issue.</span>
                 </div>
                 <div class="friction-item">
                   <span class="friction-badge">Deferred Value</span>
-                  <span class="friction-desc">P2 observability tools this persona needs are pushed to FY27 &mdash; they remain underserved through 2+ phases.</span>
+                  <span class="friction-desc">P2 observability tools this persona needs most are pushed to FY27 &mdash; they're underserved through 2+ phases of the roadmap.</span>
                 </div>
               </div>
             </div>
