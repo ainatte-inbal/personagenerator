@@ -15,7 +15,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validation:
+    uses: actions-intuit/ibp-wf/.github/workflows/validation.yml@v1
+    secrets: inherit
+
   build:
+    needs: validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

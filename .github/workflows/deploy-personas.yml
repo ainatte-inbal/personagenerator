@@ -17,7 +17,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validation:
+    uses: actions-intuit/ibp-wf/.github/workflows/validation.yml@v1
+    secrets: inherit
+
   deploy:
+    needs: validation
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
